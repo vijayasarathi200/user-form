@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>User Form</h2>
+
+<input id="name" placeholder="Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="phone" placeholder="Phone"><br><br>
+
+<button onclick="save()">Save</button>
+
+<script>
+async function save() {
+  await fetch("http://localhost:3000/save", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: document.getElementById("name").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value
+    })
+  });
+
+  alert("Saved");
+}
+</script>
+
+</body>
+</html>
