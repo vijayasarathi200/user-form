@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,8 +9,6 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-// Serve index.html
 app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
@@ -17,9 +16,9 @@ app.get("/", (req, res) => {
 });
 
 // MongoDB Connection
-mongoose.connect(process.env.MONGODB_URI);
+mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB Connected"))
-  .catch(err => console.log(err));
+  .catch(err => console.log("MongoDB Error:", err));
 
 // User Model
 const User = mongoose.model("User", {
@@ -33,7 +32,7 @@ app.post("/save", async (req, res) => {
   try {
     const user = new User(req.body);
     await user.save();
-    res.send("Saved");
+    res.send("Saved Successfully");
   } catch (error) {
     res.status(500).send(error.message);
   }
@@ -49,7 +48,6 @@ app.get("/users", async (req, res) => {
   }
 });
 
-// Start Server
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
