@@ -1,3 +1,4 @@
+require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 // MongoDB Connection
-mongoose.connect("mongodb://127.0.0.1:27017/userdb")
+mongoose.connect(process.env.MONGODB_URI);
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
 
